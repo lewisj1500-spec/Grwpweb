@@ -151,22 +151,20 @@
 
   /* MOBILE: scale type down so headings fit small screens without dominating */
   @media(max-width:600px){
-    h1{font-size:clamp(27px,7vw,33px); letter-spacing:-.8px; margin-bottom:18px;}
-    h2{font-size:clamp(22px,5.6vw,26px); letter-spacing:-.5px; margin-bottom:16px;}
-    .reframe{font-size:clamp(16px,4vw,19px); margin-bottom:13px;}
-    .hero-sub{font-size:15px; margin-bottom:30px; line-height:1.6;}
-    .note p{font-size:clamp(15px,4vw,17px) !important;}
-    .note-pivot{font-size:clamp(19px,5.4vw,24px) !important; margin:24px 0 20px !important;}
-    .big p{font-size:clamp(22px,7vw,30px);}
-    p{font-size:15px;}
-    .wrap{padding:0 26px;}
-    nav .bar{padding:16px 26px;}
+    h1{font-size:clamp(22px,6.4vw,29px); letter-spacing:-1px; margin-bottom:18px;}
+    h2{font-size:clamp(18px,5.2vw,23px); letter-spacing:-.6px; margin-bottom:16px;}
+    .reframe{font-size:clamp(14px,3.6vw,16px); margin-bottom:13px;}
+    .hero-sub{font-size:12px; margin-bottom:30px; line-height:1.6;}
+    .note p{font-size:clamp(13px,3.6vw,14px) !important;}
+    .note-pivot{font-size:clamp(16px,4.8vw,21px) !important; margin:24px 0 20px !important;}
+    .big p{font-size:clamp(18px,6.4vw,26px);}
+    p{font-size:12px;}
+    .wrap{padding:0 22px;}
+    nav .bar{padding:16px 22px;}
     .ways{margin-top:26px;}
     .way{padding:22px 0;}
     .steps{margin-top:22px;}
     .step{padding:0 0 28px 56px;}
-    /* let headlines wrap naturally within the padded column instead of forced wide line breaks */
-    h1 br, h2 br{display:none;}
   }
   h1 em{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; letter-spacing:-1px; color:#9FC7B5;}
   .reframe{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(19px,2.4vw,26px); color:#F0E2C8; margin-bottom:15px;}
@@ -269,10 +267,10 @@
   .cue{position:absolute; bottom:34px; left:50%; transform:translateX(-50%); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); display:flex; flex-direction:column; align-items:center; gap:8px; animation:bob 2.2s ease-in-out infinite; transition:opacity .5s ease;}
   .cue.gone{opacity:0;}
   .cue svg{width:18px; height:18px;}
-  /* MOBILE: pin the cue to the bottom of the screen so it sits near the bottom, keeps its
-     bob animation, and fades out on scroll (the .gone class is toggled by JS). */
+  /* MOBILE: pin the cue to the bottom of the screen so it stays put, keeps its bob animation,
+     and fades out on scroll (the .gone class is toggled by JS). */
   @media(max-width:760px){
-    .cue{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); margin:0; z-index:40;}
+    .cue{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); margin:0; z-index:40;}
   }
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
 
