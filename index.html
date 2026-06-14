@@ -27,22 +27,27 @@
      its own real gradient (exact UI-System tokens), so you see each gradient's own structure
      and move from one into the next, instead of one flat interpolated wash. */
   .act{position:relative;}
-  /* ACT I — LAUNCH (g-launch): deep sage with golden glow. Ends on #2A3A33 to meet Act II. */
+  /* All three acts share the SAME 180deg angle so the colours line up across the full width at
+     each seam (mismatched angles were what created the visible line). */
+  /* ACT I — LAUNCH: deep sage with golden glow. Ends on #2A3A33 to meet Act II. */
   .act-1{background:
       radial-gradient(ellipse at 30% 16%, rgba(245,158,11,0.5), transparent 58%),
-      linear-gradient(165deg, #5A8071 0%, #3D5C50 42%, #2A3A33 100%);}
-  /* ACT II — SUNSET (g-sunset): sage -> amber -> blue. Starts on #2A3A33, ends on deep blue #2A3A5A. */
+      linear-gradient(180deg, #5A8071 0%, #3D5C50 42%, #2A3A33 100%);}
+  /* ACT II — SUNSET: sage -> amber -> blue. Starts on #2A3A33, ends on deep blue #2A3A5A. */
   .act-2{background:
       radial-gradient(ellipse at 45% 28%, rgba(251,191,36,0.42), transparent 50%),
       linear-gradient(180deg, #2A3A33 0%, #5A8071 18%, #B88564 50%, #5A6890 78%, #2A3A5A 100%);}
-  /* ACT III — COVER WASH (g-cover): light multi-wash, resolving the page toward light.
-     Starts from Act II's blue (#2A3A5A) and lifts into the sky/gold/sage wash. White text
-     stays legible via the section scrim. */
+  /* ACT III — COVER WASH: light multi-wash. Starts from Act II's blue (#2A3A5A). */
   .act-3{background:
       radial-gradient(ellipse at 16% 14%, rgba(72,112,221,0.30), transparent 46%),
       radial-gradient(ellipse at 84% 18%, rgba(245,158,11,0.30), transparent 50%),
       radial-gradient(ellipse at 50% 94%, rgba(212,237,227,0.42), transparent 54%),
-      linear-gradient(150deg, #2A3A5A 0%, #3C4A50 46%, #4A5650 100%);}
+      linear-gradient(180deg, #2A3A5A 0%, #3C4A50 46%, #4A5650 100%);}
+  /* soft blend bands straddling each seam, so one act melts into the next instead of meeting in a line */
+  .act-1, .act-2{position:relative;}
+  .act-1::after, .act-2::after{content:""; position:absolute; left:0; right:0; bottom:-60px; height:120px; z-index:1; pointer-events:none;}
+  .act-1::after{background:linear-gradient(180deg, rgba(42,58,51,0) 0%, #2A3A33 50%, rgba(42,58,51,0) 100%);}
+  .act-2::after{background:linear-gradient(180deg, rgba(42,58,90,0) 0%, #2A3A5A 50%, rgba(42,58,90,0) 100%);}
   .grain{position:fixed; inset:0; z-index:3; pointer-events:none; opacity:.12; mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
   .veil{display:none;}
@@ -134,8 +139,32 @@
     background:radial-gradient(85% 60% at 38% 50%, rgba(8,12,10,0.42) 0%, rgba(8,12,10,0.18) 45%, transparent 72%);}
   .final .panel::before, .panel.final::before{background:radial-gradient(90% 62% at 50% 46%, rgba(8,12,10,0.6) 0%, rgba(8,12,10,0.3) 48%, transparent 76%);}
   @media(max-width:600px){.panel{padding:104px 0 72px;}}
+  /* MOBILE: let panels grow to fit their content instead of locking to one screen height,
+     so nothing gets cut off on short viewports. Content top-aligns and scrolls naturally. */
+  @media(max-width:760px){
+    .panel{min-height:auto; justify-content:flex-start; padding:96px 0 64px;}
+    .panel.final{min-height:100vh; justify-content:center;}  /* keep the closing CTA full-height */
+    /* drop the per-panel scrim on mobile — with packed auto-height panels its edges showed
+       as visible bands between sections. The dark gradient already keeps text legible. */
+    .panel::before{display:none;}
+    .panel.final::before{display:block;}
+  }
 
   h1{font-size:clamp(38px,6.2vw,64px); font-weight:900; letter-spacing:-1.8px; line-height:1.04; margin-bottom:26px; color:#fff;}
+
+  /* MOBILE: scale type down so headings fit small screens without dominating */
+  @media(max-width:600px){
+    h1{font-size:clamp(32px,9vw,42px); letter-spacing:-1.2px; margin-bottom:20px;}
+    h2{font-size:clamp(26px,7.5vw,34px); letter-spacing:-.8px; margin-bottom:18px;}
+    .reframe{font-size:clamp(18px,5vw,22px);}
+    .hero-sub{font-size:16px; margin-bottom:34px;}
+    .note p{font-size:clamp(17px,5vw,20px) !important;}
+    .note-pivot{font-size:clamp(22px,7vw,30px) !important; margin:26px 0 22px !important;}
+    .big p{font-size:clamp(26px,9vw,38px);}
+    p{font-size:16px;}
+    .wrap{padding:0 22px;}
+    nav .bar{padding:16px 22px;}
+  }
   h1 em{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; letter-spacing:-1px; color:#9FC7B5;}
   .reframe{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(19px,2.4vw,26px); color:#F0E2C8; margin-bottom:15px;}
   .hero-sub{font-size:17px; color:rgba(255,250,242,0.72); max-width:452px; margin-bottom:42px; line-height:1.62;}
@@ -414,6 +443,8 @@
   var panels=Array.prototype.slice.call(document.querySelectorAll('.panel'));
   var veil=document.getElementById('veil'), nav=document.getElementById('nav'), dotsWrap=document.getElementById('dots');
   var pageReady=false;   // true once the loader has lifted; blocks scroll input during intro
+  // mobile / touch devices scroll natively — the desktop snap engine is disabled for them
+  var isMobile = window.matchMedia && window.matchMedia('(max-width:760px), (pointer:coarse)').matches;
 
   // build progress dots
   panels.forEach(function(p,i){
@@ -436,9 +467,12 @@
   function animateTo(idx){
     idx=Math.max(0,Math.min(panels.length-1,idx));
     if(idx===current && !animating){ return; }
-    target=idx;
-    var start=scroller.scrollTop, end=Math.round(panelTop(idx)), dist=end-start;
-    if(Math.abs(dist)<2){ current=idx; animating=false; return; }
+    target=idx; current=idx;
+    var end=Math.round(panelTop(idx));
+    // mobile: plain native smooth scroll, no engine, no jump
+    if(isMobile){ scroller.scrollTo({top:end, behavior:'smooth'}); return; }
+    var start=scroller.scrollTop, dist=end-start;
+    if(Math.abs(dist)<2){ animating=false; return; }
     animating=true;
     var dur=Math.min(1050, 600+Math.abs(dist)*0.16), t0=null;
     function step(ts){
@@ -454,8 +488,10 @@
 
   // wheel → one intentional gesture = one section. Each wheel event pushes the lockout
   // forward, so a long momentum train can't fire a second (or reverse) move.
+  // On mobile, panels grow to fit content and scroll naturally — the snap engine is desktop-only.
   var releaseAt=0, lastDir=0;
   scroller.addEventListener('wheel',function(e){
+    if(isMobile) return;                            // native scroll on mobile
     e.preventDefault();
     if(!pageReady) return;                          // locked during intro
     var now=Date.now();
@@ -467,11 +503,11 @@
     animateTo(current+dir);
   },{passive:false});
 
-  // touch (mobile) → one swipe advances one section
+  // touch (desktop hybrid only) → one swipe advances one section; on phones we let it scroll natively
   var touchY=null, touchLock=false;
   scroller.addEventListener('touchstart',function(e){touchY=e.touches[0].clientY; touchLock=false;},{passive:true});
   scroller.addEventListener('touchmove',function(e){
-    if(!pageReady||touchY===null||animating||touchLock) return;
+    if(isMobile||!pageReady||touchY===null||animating||touchLock) return;
     var dy=touchY-e.touches[0].clientY;
     if(Math.abs(dy)>44){ touchLock=true; animateTo(current + (dy>0 ? 1 : -1)); }
   },{passive:true});
