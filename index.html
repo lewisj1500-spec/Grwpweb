@@ -139,12 +139,10 @@
     background:radial-gradient(85% 60% at 38% 50%, rgba(8,12,10,0.42) 0%, rgba(8,12,10,0.18) 45%, transparent 72%);}
   .final .panel::before, .panel.final::before{background:radial-gradient(90% 62% at 50% 46%, rgba(8,12,10,0.6) 0%, rgba(8,12,10,0.3) 48%, transparent 76%);}
   @media(max-width:600px){.panel{padding:104px 0 72px;}}
-  /* MOBILE: let panels grow to fit their content instead of locking to one screen height,
-     so nothing gets cut off on short viewports. Content top-aligns and scrolls naturally. */
+  /* MOBILE: keep panels a full screen tall (one section = one screen) so the next section
+     never peeks behind the bottom cue. Content centred; type is scaled down below to fit. */
   @media(max-width:760px){
-    .panel{min-height:auto; justify-content:flex-start; padding:64px 0 44px;}
-    .panel.final{min-height:auto; justify-content:flex-start; padding:72px 0 44px;}
-    .panel::before{display:none;}
+    .panel{min-height:100vh; min-height:100dvh; justify-content:center; padding:88px 0 72px;}
   }
 
   h1{font-size:clamp(38px,6.2vw,64px); font-weight:900; letter-spacing:-1.8px; line-height:1.04; margin-bottom:26px; color:#fff;}
@@ -161,10 +159,13 @@
     p{font-size:12px;}
     .wrap{padding:0 22px;}
     nav .bar{padding:16px 22px;}
-    .ways{margin-top:26px;}
-    .way{padding:22px 0;}
-    .steps{margin-top:22px;}
-    .step{padding:0 0 28px 56px;}
+    .ways{margin-top:18px;}
+    .way{padding:16px 0;}
+    .way h3{margin:0 0 6px;}
+    .steps{margin-top:18px;}
+    .step{padding:0 0 20px 52px;}
+    .step h3{margin:4px 0 5px;}
+    .way p, .step p{font-size:12.5px; line-height:1.55;}
   }
   h1 em{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; letter-spacing:-1px; color:#9FC7B5;}
   .reframe{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(19px,2.4vw,26px); color:#F0E2C8; margin-bottom:15px;}
