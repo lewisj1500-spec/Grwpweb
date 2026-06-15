@@ -132,20 +132,25 @@
   }
 
   /* ===== SNAP SECTIONS ===== */
-  .panel{min-height:100vh; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; padding:120px 0 90px;}
+  .panel{min-height:100vh; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; padding:clamp(72px,11vh,108px) 0 clamp(48px,8vh,80px);}
   /* soft legibility scrim — darkens only behind the text column, invisible at the edges,
      so the brand gradient stays vivid in the margins while white text holds contrast */
   .panel::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
     background:radial-gradient(85% 60% at 38% 50%, rgba(8,12,10,0.42) 0%, rgba(8,12,10,0.18) 45%, transparent 72%);}
   .final .panel::before, .panel.final::before{background:radial-gradient(90% 62% at 50% 46%, rgba(8,12,10,0.6) 0%, rgba(8,12,10,0.3) 48%, transparent 76%);}
   @media(max-width:600px){.panel{padding:104px 0 72px;}}
-  /* MOBILE: keep panels a full screen tall (one section = one screen) so the next section
-     never peeks behind the bottom cue. Content centred; type is scaled down below to fit. */
+  /* EXTREME SHORT WINDOWS: below this height even scaled content can't fit one screen without
+     becoming unreadable, so stop forcing 100vh — let the panel grow and scroll (snap is off here
+     too, see JS), so the bottom of a section is never clipped. */
+  @media(min-width:761px) and (max-height:640px){
+    .panel{min-height:auto; justify-content:flex-start; padding:84px 0 44px;}
+  }
+  /* MOBILE: full screen per section, content centred; type scaled down below to fit. */
   @media(max-width:760px){
     .panel{min-height:100vh; min-height:100dvh; justify-content:center; padding:88px 0 72px;}
   }
 
-  h1{font-size:clamp(38px,6.2vw,64px); font-weight:900; letter-spacing:-1.8px; line-height:1.04; margin-bottom:26px; color:#fff;}
+  h1{font-size:clamp(30px,3vw + 3vh,62px); font-weight:900; letter-spacing:-1.7px; line-height:1.04; margin-bottom:clamp(12px,2.4vh,26px); color:#fff;}
 
   /* MOBILE: scale type down so headings fit small screens without dominating */
   @media(max-width:600px){
@@ -168,14 +173,14 @@
     .way p, .step p{font-size:12.5px; line-height:1.55;}
   }
   h1 em{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; letter-spacing:-1px; color:#9FC7B5;}
-  .reframe{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(19px,2.4vw,26px); color:#F0E2C8; margin-bottom:15px;}
-  .hero-sub{font-size:17px; color:rgba(255,250,242,0.72); max-width:452px; margin-bottom:42px; line-height:1.62;}
+  .reframe{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:clamp(16px,1.6vw + 1.4vh,25px); color:#F0E2C8; margin-bottom:14px;}
+  .hero-sub{font-size:16px; color:rgba(255,250,242,0.72); max-width:450px; margin-bottom:clamp(24px,4vh,42px); line-height:1.6;}
   .hero-sub b{color:#fff; font-weight:600;}
 
-  h2{font-size:clamp(28px,4.2vw,42px); font-weight:900; letter-spacing:-1.1px; line-height:1.06; margin-bottom:22px; color:#fff;}
+  h2{font-size:clamp(23px,2.1vw + 2.1vh,40px); font-weight:900; letter-spacing:-1.05px; line-height:1.07; margin-bottom:clamp(12px,2vh,21px); color:#fff;}
   h2 em{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; color:#E8B872;}
   .final h2 em{color:#8FB4F0;}
-  p{font-size:17px; color:rgba(255,250,242,0.68); margin-bottom:18px; line-height:1.8;}
+  p{font-size:16px; color:rgba(255,250,242,0.68); margin-bottom:17px; line-height:1.75;}
   p:last-child{margin-bottom:0;}
   strong{color:#fff; font-weight:600;}
 
@@ -194,34 +199,34 @@
 
   /* honest note */
   .note .wrap{max-width:680px;}
-  .note p{font-size:clamp(19px,2.6vw,24px); color:rgba(255,250,242,0.9); line-height:1.62; margin-bottom:22px; font-weight:400; letter-spacing:-.2px;}
+  .note p{font-size:clamp(16px,1.6vw + 1.4vh,23px); color:rgba(255,250,242,0.9); line-height:1.6; margin-bottom:20px; font-weight:400; letter-spacing:-.2px;}
   .note .sign{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:18px; color:#F0E2C8; margin-top:8px;}
-  .note-pivot{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(24px,3.6vw,36px) !important; line-height:1.2; color:#fff !important; margin:34px 0 26px !important; letter-spacing:-.5px;}
+  .note-pivot{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(21px,2.3vw + 2vh,35px) !important; line-height:1.2; color:#fff !important; margin:clamp(20px,3.5vh,32px) 0 clamp(16px,2.6vh,26px) !important; letter-spacing:-.5px;}
   .note-pivot .hl{color:#F0E2C8;}
 
   /* big pivot */
   .big .wrap{max-width:820px;}
-  .big p{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(28px,5.2vw,52px); line-height:1.22; color:#fff; margin:0; letter-spacing:-.6px;}
+  .big p{font-family:'Fraunces',Georgia,serif; font-style:italic; font-weight:400; font-size:clamp(24px,3.2vw + 2.8vh,50px); line-height:1.22; color:#fff; margin:0; letter-spacing:-.6px;}
   .big p .hl{color:#F0E2C8;}
 
   /* rows */
   /* HOW IT WORKS — connected vertical step flow with a linking line */
-  .steps{margin-top:26px; position:relative;}
-  .step{position:relative; padding:0 0 38px 64px;}
+  .steps{margin-top:clamp(14px,2.4vh,22px); position:relative;}
+  .step{position:relative; padding:0 0 clamp(16px,3.2vh,28px) 64px;}
   .step:last-child{padding-bottom:0;}
   /* the connecting line runs through the number markers */
   .step::before{content:""; position:absolute; left:19px; top:34px; bottom:-4px; width:2px; background:linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.08));}
   .step:last-child::before{display:none;}
   .step .dot{position:absolute; left:0; top:0; width:40px; height:40px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:17px; color:#F0E2C8; background:rgba(255,255,255,0.06); backdrop-filter:blur(4px);}
-  .step h3{font-size:clamp(19px,2.6vw,23px); font-weight:800; letter-spacing:-.4px; color:#fff; margin:6px 0 7px;}
-  .step p{font-size:15.5px; margin-bottom:0; max-width:520px; line-height:1.7;}
+  .step h3{font-size:clamp(16px,1.6vw + 1.1vh,22px); font-weight:800; letter-spacing:-.4px; color:#fff; margin:4px 0 6px;}
+  .step p{font-size:15px; margin-bottom:0; max-width:520px; line-height:1.6;}
 
   /* THREE WAYS IN — calm vertical list. One coloured marker + label per row, lots of breathing
      room, no boxes. The colour and a hairline between rows make each easy to tell apart. */
-  .ways{margin-top:34px; display:flex; flex-direction:column; max-width:600px;}
-  .way{position:relative; display:grid; grid-template-columns:54px 1fr; gap:20px; align-items:start;
-    padding:28px 0; border-top:1px solid rgba(255,255,255,0.12);}
-  .way:first-child{border-top:none; padding-top:6px;}
+  .ways{margin-top:clamp(12px,2.2vh,24px); display:flex; flex-direction:column; max-width:600px;}
+  .way{position:relative; display:grid; grid-template-columns:54px 1fr; gap:18px; align-items:start;
+    padding:clamp(11px,2.2vh,22px) 0; border-top:1px solid rgba(255,255,255,0.12);}
+  .way:first-child{border-top:none; padding-top:4px;}
   .way:nth-child(1){--accent:#7FB39C;}   /* sage */
   .way:nth-child(2){--accent:#6F95E8;}   /* blue */
   .way:nth-child(3){--accent:#E8B872;}   /* gold */
@@ -229,8 +234,8 @@
     display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:19px;
     color:var(--accent); background:rgba(255,255,255,0.04);}
   .way .k{font-size:10px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:6px;}
-  .way h3{font-size:clamp(18px,2.2vw,21px); font-weight:800; letter-spacing:-.3px; color:#fff; line-height:1.2; margin:0 0 9px;}
-  .way p{font-size:15px; line-height:1.7; color:rgba(255,250,242,0.72); margin:0; max-width:480px;}
+  .way h3{font-size:clamp(16px,1.5vw + 1.1vh,21px); font-weight:800; letter-spacing:-.3px; color:#fff; line-height:1.2; margin:0 0 6px;}
+  .way p{font-size:14.5px; line-height:1.6; color:rgba(255,250,242,0.72); margin:0; max-width:480px;}
   @media(max-width:600px){.way{grid-template-columns:1fr; gap:12px;} .way .dot{margin-bottom:2px;}}
 
   /* legacy rows kept for any remaining use */
@@ -450,8 +455,14 @@
   var panels=Array.prototype.slice.call(document.querySelectorAll('.panel'));
   var veil=document.getElementById('veil'), nav=document.getElementById('nav'), dotsWrap=document.getElementById('dots');
   var pageReady=false;   // true once the loader has lifted; blocks scroll input during intro
-  // mobile / touch devices scroll natively — the desktop snap engine is disabled for them
-  var isMobile = window.matchMedia && window.matchMedia('(max-width:760px), (pointer:coarse)').matches;
+  // Content scales with viewport height (see CSS), so every section always fits one screen and the
+  // snap stays on at all desktop sizes. Native scroll is only for touch / narrow (mobile) devices.
+  function nativeScrollMode(){
+    if(window.matchMedia && window.matchMedia('(max-width:760px), (pointer:coarse)').matches) return true;
+    return window.innerHeight < 640;   // extreme-short: content can't fit even scaled → free scroll
+  }
+  var isMobile = nativeScrollMode();
+  window.addEventListener('resize', function(){ isMobile = nativeScrollMode(); });
 
   // build progress dots
   panels.forEach(function(p,i){
@@ -599,6 +610,7 @@
     if(pageReady) return;
     pageReady=true;
     document.body.classList.remove('loader-lock');
+    isMobile = nativeScrollMode();   // measure section heights now layout is live
     // overlay fades away (mark drifts up first), page gently settles in beneath it
     if(loader){ loader.classList.add('go'); }
     document.body.classList.add('intro-clearing');
@@ -608,6 +620,7 @@
     setTimeout(function(){
       if(loader && loader.parentNode){ loader.parentNode.removeChild(loader); }
       document.body.classList.remove('intro-clearing');
+      isMobile = nativeScrollMode();   // re-measure after fonts/reveals settle
     }, reduce ? 200 : 1300);
   }
   // total intro ≈ logo build (~1.4s) then lift
