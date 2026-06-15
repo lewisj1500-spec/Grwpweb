@@ -586,11 +586,35 @@
   });
 
   // signup
+  // ===== SIGNUP → FORMSPREE =====
+  // Replace FORM_ID below with your Formspree form ID. Get it at https://formspree.io:
+  //   1. Sign up (free), create a New Form, set the notification email to your own inbox.
+  //   2. Formspree gives you an endpoint like https://formspree.io/f/abcdwxyz
+  //   3. Paste just the ID part (the bit after /f/) between the quotes below.
+  // Every signup will then email you automatically. Free tier = 50 submissions/month.
+  var FORMSPREE_ID = "mkoaybbp";
   function submitEmail(which){
-    var input=document.getElementById('email-'+which),form=document.getElementById('signup-form-'+which),ok=document.getElementById('success-'+which);
-    var email=input.value.trim(),valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if(!valid){input.style.borderColor='#F87171';input.focus();return;}
-    form.style.display='none'; ok.classList.add('show');
+    var input=document.getElementById('email-'+which),
+        form=document.getElementById('signup-form-'+which),
+        ok=document.getElementById('success-'+which),
+        btn=form.querySelector('button');
+    var email=input.value.trim(), valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!valid){ input.style.borderColor='#F87171'; input.focus(); return; }
+    var label=btn.textContent;
+    btn.disabled=true; btn.textContent='Sending…';
+    fetch('https://formspree.io/f/'+FORMSPREE_ID, {
+      method:'POST',
+      headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({ email:email, source:'Grwp landing page' })
+    }).then(function(r){
+      if(r.ok){ form.style.display='none'; ok.classList.add('show'); }
+      else { throw new Error('submit failed'); }
+    }).catch(function(){
+      // network/Formspree error — let them retry rather than losing the signup silently
+      btn.disabled=false; btn.textContent=label;
+      input.style.borderColor='#F87171';
+      input.value=email; input.placeholder='Something went wrong — try again';
+    });
   }
   document.querySelectorAll('.signup input').forEach(function(el){
     el.addEventListener('input',function(){el.style.borderColor='';});
